@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ScrollZoomPoc"
+             x:Class="ScrollZoomPoc.ScrolledContentPage"
+             x:DataType="local:ScrolledContentPage"
+             Title="Scrolled Content">
+    
+    <Grid RowDefinitions="*,Auto"
+          RowSpacing="10"
+          ColumnDefinitions="*,*"
+          ColumnSpacing="10"
+          Margin="10">
+        <ScrollView Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Orientation="Both"
+                    BackgroundColor="Bisque">
+            <VerticalStackLayout
+                x:Name="_contentLayout"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding ContentPages}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            x:Name="_layout"
+                            BackgroundColor="Blue"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            HeightRequest="200"
+                            WidthRequest="200"
+                            Padding="20">
+                            <BoxView
+                                VerticalOptions="Fill"
+                                HorizontalOptions="Fill"
+                                BackgroundColor="Coral">
+                            </BoxView>
+                            <Label Text="{Binding .}"
+                                   TextColor="Black"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                            <Grid.GestureRecognizers>
+                                <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>                    
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <Button
+            Text="Zoom In (+.5)" 
+            Clicked="OnZoomIn"
+            HorizontalOptions="Fill"
+            Grid.Column="0"
+            Grid.Row="1" />
+        
+        <Button
+            Text="Zoom Out (-.5)" 
+            Clicked="OnZoomOut"
+            HorizontalOptions="Fill"
+            Grid.Column="1"
+            Grid.Row="1"/>
+        
+    </Grid>    
+
+</ContentPage>
