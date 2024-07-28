@@ -18,6 +18,11 @@ public partial class MainPage : ContentPage
         Navigation.PushAsync(new PagedContentPage());
     }
     
+    private void OnPagedContent2Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new PagedContentPage2());
+    }
+    
     private void OnScrolledContentClicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new ScrolledContentPage());

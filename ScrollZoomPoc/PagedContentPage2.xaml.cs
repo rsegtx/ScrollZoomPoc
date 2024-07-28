@@ -1,6 +1,6 @@
 ﻿namespace ScrollZoomPoc;
 
-public partial class PagedContentPage : ContentPage
+public partial class PagedContentPage2 : ContentPage
 {
     public List<string> ContentPages { get; } = new List<string>()
     {
@@ -10,7 +10,7 @@ public partial class PagedContentPage : ContentPage
     public double DefaultWidth { get; } = 400;
     public double DefaultHeight { get; } = 518;
     
-    public PagedContentPage()
+    public PagedContentPage2()
     {
         InitializeComponent();
         BindingContext = this;

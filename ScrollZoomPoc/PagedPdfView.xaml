@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ScrollZoomPoc.PagedPdfView">
+    <Grid>
+        <ScrollView x:Name="_scrollView"
+                    Orientation="Both"
+                    BackgroundColor="Gray"
+                    Scrolled="ScrollView_OnScrolled"
+                    PropertyChanged="_scrollView_OnPropertyChanged">
+            <Image x:Name="_imageView"
+                   WidthRequest="400"
+                   HeightRequest="518"
+                   Aspect="AspectFit"
+                   Source="{Binding .}">
+                <Image.GestureRecognizers>
+                    <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
+                    <TapGestureRecognizer Tapped="OnDoubleTap" NumberOfTapsRequired="2" />
+                </Image.GestureRecognizers>                          
+            </Image>
+        </ScrollView>
+        <Grid WidthRequest="30"
+              HorizontalOptions="End"
+              BackgroundColor="Gray"
+              Opacity=".2">
+            <Grid.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="Right_OnPanUpdated"/>
+            </Grid.GestureRecognizers>
+        </Grid>
+        <Grid WidthRequest="30"
+              HorizontalOptions="Start"
+              BackgroundColor="Gray"
+              Opacity=".2">
+            <Grid.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="Left_OnPanUpdated"/>
+            </Grid.GestureRecognizers>
+        </Grid>
+    </Grid>
+</ContentView>

@@ -67,11 +67,25 @@
       <MauiXaml Update="ScrolledContentPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="PagedPdfView2.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="PagedContentPage2.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
       <Compile Update="ScrolledContentPage.xaml.cs">
         <DependentUpon>ScrolledContentPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="PagedPdfView2.xaml.cs">
+        <DependentUpon>PagedPdfView2.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="PagedContentPage2.xaml.cs">
+        <DependentUpon>PagedContentPage2.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

@@ -23,7 +23,16 @@
                 BindableLayout.ItemsSource="{Binding ContentPages}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Grid
+                        <Image x:Name="_layout"
+                               WidthRequest="400"
+                               HeightRequest="518"
+                               Aspect="AspectFit"
+                               Source="{Binding .}">
+                            <Image.GestureRecognizers>
+                                <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
+                            </Image.GestureRecognizers>                            
+                        </Image>
+                        <!--<Grid
                             x:Name="_layout"
                             BackgroundColor="Blue"
                             VerticalOptions="Center"
@@ -43,7 +52,7 @@
                             <Grid.GestureRecognizers>
                                 <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
                             </Grid.GestureRecognizers>
-                        </Grid>                    
+                        </Grid>-->                    
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>

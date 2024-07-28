@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ScrollZoomPoc"
              xmlns:pancardview="clr-namespace:PanCardView;assembly=PanCardView"
-             x:Class="ScrollZoomPoc.PagedContentPage"
+             x:Class="ScrollZoomPoc.PagedContentPage2"
              Title="Paged Content"
-             x:DataType="local:PagedContentPage">
+             x:DataType="local:PagedContentPage2">
 
     <Grid RowDefinitions="*,Auto"
           RowSpacing="10"

@@ -12,6 +12,11 @@
                 Clicked="OnPagedContentClicked"
                 WidthRequest="200"
                 HorizontalOptions="Center"/>
+            <!--<Button
+                Text="Paged Content 2" 
+                Clicked="OnPagedContent2Clicked"
+                WidthRequest="200"
+                HorizontalOptions="Center"/>-->
             <Button
                 Text="Scrolled Content" 
                 Clicked="OnScrolledContentClicked"

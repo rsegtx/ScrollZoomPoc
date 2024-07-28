@@ -4,7 +4,7 @@ public partial class ScrolledContentPage : ContentPage
 {
     public List<string> ContentPages { get; } = new List<string>()
     {
-        "Page 1", "Page 2", "Page 3"
+        "pdf5535_0_612x792.png", "pdf5535_1_612x792.png", "pdf5535_2_612x792.png"
     };
     
     public ScrolledContentPage()
@@ -37,11 +37,10 @@ public partial class ScrolledContentPage : ContentPage
     {
         foreach (var view in _contentLayout.Children)
         {
-            var grid = view as Grid;
-            if (grid != null)
+            if (view is VisualElement visualElement)
             {
-                grid.HeightRequest = grid.Height * scale;
-                grid.WidthRequest = grid.Width * scale;
+                visualElement.HeightRequest = visualElement.Height * scale;
+                visualElement.WidthRequest = visualElement.Width * scale;
             }
         }
     }
