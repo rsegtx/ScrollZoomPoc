@@ -22,6 +22,10 @@ public partial class ScrolledContentPage : ContentPage
             ZoomContent(e.Scale);
         }
     }
+
+    async void OnDoubleTap(object sender, TappedEventArgs e)
+    {
+    }
     
     private void OnZoomIn(object sender, EventArgs e)
     {

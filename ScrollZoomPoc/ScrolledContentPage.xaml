@@ -30,6 +30,7 @@
                                Source="{Binding .}">
                             <Image.GestureRecognizers>
                                 <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
+                                <TapGestureRecognizer Tapped="OnDoubleTap" NumberOfTapsRequired="2" />
                             </Image.GestureRecognizers>                            
                         </Image>
                         <!--<Grid

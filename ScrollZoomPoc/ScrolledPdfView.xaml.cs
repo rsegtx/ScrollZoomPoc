@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScrollZoomPoc;
 
-public partial class PagedPdfView : ContentView
+public partial class ScrolledPdfView : ContentView
 {
     public event EventHandler<EventArgs> PageNext;
     public event EventHandler<EventArgs> PagePrevious;
@@ -17,7 +17,7 @@ public partial class PagedPdfView : ContentView
     
     public int MaxScale = 5;
 
-    public PagedPdfView()
+    public ScrolledPdfView()
     {
         InitializeComponent();
     }
@@ -77,7 +77,7 @@ public partial class PagedPdfView : ContentView
         Console.WriteLine($"--- _image - ({_imageView.Width},{_imageView.Height}) _scrollView.ContentSize - ({_scrollView.ContentSize.Width},{_scrollView.ContentSize.Height})");
     }
     
-    async void OnDoubleTap(object sender, TappedEventArgs e)
+    async  void OnDoubleTap(object sender, TappedEventArgs e)
     {
         if (_imageView.Width == DefaultWidth && _imageView.HeightRequest == DefaultHeight)
         {
