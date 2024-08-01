@@ -22,6 +22,9 @@ public partial class PagedPdfView : ContentView
         InitializeComponent();
     }
 
+    private Point _scaleOrigin;
+    private bool _pinchZooming = false;
+    
     async void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
     {
         Console.WriteLine($"--- {e.Status} {e.Scale} Origin x,y - {e.ScaleOrigin.X},{e.ScaleOrigin.Y} ");
@@ -29,23 +32,38 @@ public partial class PagedPdfView : ContentView
         switch (e.Status)
         {
             case GestureStatus.Started:
+                _scaleOrigin = e.ScaleOrigin;
+                _pinchZooming = true;
                 break;
             
             case GestureStatus.Running:
-                ZoomContent(e.Scale);
+                Console.WriteLine($"before _imageView.Width {_imageView.Width}, _imageView.Height {_imageView.Height}");
+                _imageView.HeightRequest = _imageView.Height * e.Scale;
+                _imageView.WidthRequest = _imageView.Width * e.Scale;
+                Console.WriteLine($"after _imageView.Width {_imageView.Width}, _imageView.Height {_imageView.Height}");
+                Console.WriteLine($"--- _scrollView.Width {_scrollView.Width}; ContentSize.Width {_scrollView.ContentSize.Width}");
                 if (_imageView.Width > _scrollView.Width || _imageView.Height > _scrollView.Height)
-                    // TODO: rather than scrolling to center of _imageView, we should take into account
-                    // e.ScaleOrigin.X, e.ScaleOrigin.Y.
-                    await _scrollView.ScrollToAsync(_imageView, ScrollToPosition.Center, false);
+                {
+                    var scrollX = (_imageView.Width > _scrollView.Width)
+                            ? ((_imageView.Width * _scaleOrigin.X)) - (_scrollView.Width / 2)
+                            : 0;
+                    
+                    var scrollY = (_imageView.Height > _scrollView.Height)
+                            ? ((_imageView.Height * _scaleOrigin.Y)) - (_scrollView.Height/2)
+                            : 0;
+                    
+                    Console.WriteLine($"--- scroll to {scrollX},{scrollY}");
+                    await _scrollView.ScrollToAsync(scrollX, scrollY, false);
+                }
                 break;
             
             case GestureStatus.Completed:
-                
                 // when zoom in/out is complete adjust the size of _imageView if the size is smaller than
                 // the minimum or larger than the maximum.
                 if (_imageView.Height < DefaultHeight || _imageView.Width < DefaultWidth ||
                     _imageView.Height > (DefaultHeight*MaxScale) || _imageView.Width > (DefaultWidth*MaxScale))
                 {
+                    Console.WriteLine($"---Resizing image to min/max...");
                     double targetWidth = 0;
                     double targetHeight = 0;
 
@@ -70,6 +88,7 @@ public partial class PagedPdfView : ContentView
                     parentAnimation.Add(0, 1, widthAnimation);
                     parentAnimation.Commit(this, "ZoomAndScroll", length: 100);
                 }
+                _pinchZooming = false;
 
                 break;
         }
@@ -157,7 +176,7 @@ public partial class PagedPdfView : ContentView
     
     private void ScrollView_OnScrolled(object? sender, ScrolledEventArgs e)
     {
-        if (_isAutoZooming)
+        if (_isAutoZooming || _pinchZooming)
             return;
 
         Console.WriteLine($"Scrolled ScrollView.Width {_scrollView.Width}; ContentSize.Width {_scrollView.ContentSize.Width}; e.ScrollX {e.ScrollX}; e.ScrollY {e.ScrollY}");

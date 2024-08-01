@@ -11,10 +11,11 @@
           ColumnDefinitions="*,*"
           ColumnSpacing="10"
           Margin="10">
-        <ScrollView Grid.Column="0"
+        <ScrollView x:Name="_scrollView"
+                    Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Orientation="Both"
-                    BackgroundColor="Bisque">
+                    PropertyChanged="ScrollView_OnScrolled">
             <VerticalStackLayout
                 x:Name="_contentLayout"
                 VerticalOptions="Center"
@@ -33,46 +34,9 @@
                                 <TapGestureRecognizer Tapped="OnDoubleTap" NumberOfTapsRequired="2" />
                             </Image.GestureRecognizers>                            
                         </Image>
-                        <!--<Grid
-                            x:Name="_layout"
-                            BackgroundColor="Blue"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            HeightRequest="200"
-                            WidthRequest="200"
-                            Padding="20">
-                            <BoxView
-                                VerticalOptions="Fill"
-                                HorizontalOptions="Fill"
-                                BackgroundColor="Coral">
-                            </BoxView>
-                            <Label Text="{Binding .}"
-                                   TextColor="Black"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
-                            <Grid.GestureRecognizers>
-                                <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
-                            </Grid.GestureRecognizers>
-                        </Grid>-->                    
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
         </ScrollView>
-        
-        <Button
-            Text="Zoom In (+.5)" 
-            Clicked="OnZoomIn"
-            HorizontalOptions="Fill"
-            Grid.Column="0"
-            Grid.Row="1" />
-        
-        <Button
-            Text="Zoom Out (-.5)" 
-            Clicked="OnZoomOut"
-            HorizontalOptions="Fill"
-            Grid.Column="1"
-            Grid.Row="1"/>
-        
     </Grid>    
-
 </ContentPage>
