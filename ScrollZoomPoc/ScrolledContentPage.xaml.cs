@@ -26,25 +26,57 @@ public partial class ScrolledContentPage : ContentPage
     {
         Console.WriteLine($"-- {e.Status} {e.Scale}");
 
+        var visualElement = sender as VisualElement;
+        
         switch (e.Status)
         {
             case GestureStatus.Started:
                 Console.WriteLine($"--- e.ScaleOrigin {e.ScaleOrigin.X},{e.ScaleOrigin.Y}");
                 _scaleOrigin = e.ScaleOrigin;
+                Console.WriteLine($"--- before visualElement.Y {visualElement.Y}, _scrollView.ContentSize.Height {_scrollView.ContentSize.Height}, _scrollView.ScrollY {_scrollView.ScrollY}");
+                var saveVisualElementY = visualElement.Y;
+                var saveContentHeight = _scrollView.ContentSize.Height;
+                var newContentHeight = (_contentLayout.Children.Count + 2) * DefaultHeight * MaxScale;
+                var saveContentWidth = _scrollView.ContentSize.Width;
+                var newContentWidth = 2 * DefaultWidth * MaxScale;
+                var newScrollY = (newContentHeight - saveContentHeight) / 2 + _scrollView.ScrollY;
+                var newScrollX = (newContentWidth - saveContentWidth) / 2 + _scrollView.ScrollX;
+                _backgroundView.HeightRequest = newContentHeight;
+                _backgroundView.WidthRequest = newContentWidth;
+                await Task.Delay(10);
+                Console.WriteLine($"--- after visualElement.Y {visualElement.Y}, _scrollView.ContentSize.Height {_scrollView.ContentSize.Height}, _scrollView.ScrollY {_scrollView.ScrollY}");
+                await _scrollView.ScrollToAsync(newScrollX, newScrollY, false);
                 break;
             
             case GestureStatus.Running:
                 ZoomContent(e.Scale);
-                await Task.Delay(10);
-                if (sender is VisualElement visualElement)
+                //await Task.Delay(10);
+                return;
+                if (visualElement.Width > _scrollView.Width || (visualElement.Y + visualElement.Height) > _scrollView.Height)
                 {
-                    var scrollX = (visualElement.Width * _scaleOrigin.X);
-                    var scrollY = (visualElement.Height * _scaleOrigin.Y) + visualElement.Y;
+                    var scrollX = (visualElement.Width > _scrollView.Width)
+                        ? ((visualElement.Width * _scaleOrigin.X)) - (_scrollView.Width / 2)
+                        : 0;
+                    
+                    var scrollY = ((visualElement.Y + visualElement.Height) > _scrollView.Height)
+                        ? (visualElement.Y + (visualElement.Height * _scaleOrigin.Y)) - (_scrollView.Height/2)
+                        : 0;
+                    
+                    Console.WriteLine($"--- scroll to {scrollX},{scrollY}");
                     await _scrollView.ScrollToAsync(scrollX, scrollY, false);
-                }
+                }                    
                 break;
             
             case GestureStatus.Completed:
+                var saveContentHeight1 = _scrollView.ContentSize.Height;
+                var saveContentWidth1 = _scrollView.ContentSize.Width;
+                var newContentHeight1 = _contentLayout.Height;
+                var newContentWidth1 = _contentLayout.Width;
+                var newScrollY1 = _scrollView.ScrollY - ((saveContentHeight1-newContentHeight1)/2);
+                var newScrollX1 = _scrollView.ScrollX - ((saveContentWidth1-newContentWidth1)/2);
+                _backgroundView.HeightRequest = _contentLayout.Height;
+                _backgroundView.WidthRequest = _contentLayout.Width;
+                await _scrollView.ScrollToAsync(newScrollX1, newScrollY1, false);
                 break;
         }
     }

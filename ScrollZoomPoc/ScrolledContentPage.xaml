@@ -16,27 +16,32 @@
                     Grid.ColumnSpan="2"
                     Orientation="Both"
                     PropertyChanged="ScrollView_OnScrolled">
-            <VerticalStackLayout
-                x:Name="_contentLayout"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Spacing="10"
-                BindableLayout.ItemsSource="{Binding ContentPages}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Image x:Name="_layout"
-                               WidthRequest="400"
-                               HeightRequest="518"
-                               Aspect="AspectFit"
-                               Source="{Binding .}">
-                            <Image.GestureRecognizers>
-                                <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
-                                <TapGestureRecognizer Tapped="OnDoubleTap" NumberOfTapsRequired="2" />
-                            </Image.GestureRecognizers>                            
-                        </Image>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
+            <Grid>
+                <ContentView x:Name="_backgroundView"
+                             HorizontalOptions="Fill"
+                             VerticalOptions="Fill"/>
+                <VerticalStackLayout
+                    x:Name="_contentLayout"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Spacing="10"
+                    BindableLayout.ItemsSource="{Binding ContentPages}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Image x:Name="_layout"
+                                   WidthRequest="400"
+                                   HeightRequest="518"
+                                   Aspect="AspectFit"
+                                   Source="{Binding .}">
+                                <Image.GestureRecognizers>
+                                    <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"/>
+                                    <TapGestureRecognizer Tapped="OnDoubleTap" NumberOfTapsRequired="2" />
+                                </Image.GestureRecognizers>                            
+                            </Image>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Grid>
         </ScrollView>
     </Grid>    
 </ContentPage>
