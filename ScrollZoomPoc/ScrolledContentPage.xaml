@@ -29,8 +29,8 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Image x:Name="_layout"
-                                   WidthRequest="400"
-                                   HeightRequest="518"
+                                   WidthRequest="300"
+                                   HeightRequest="388"
                                    Aspect="AspectFit"
                                    Source="{Binding .}">
                                 <Image.GestureRecognizers>

@@ -4,8 +4,8 @@ namespace ScrollZoomPoc;
 
 public partial class ScrolledContentPage : ContentPage
 {
-    public double DefaultWidth { get; } = 400;
-    public double DefaultHeight { get; } = 518;
+    public double DefaultWidth { get; } = 300;
+    public double DefaultHeight { get; } = 388;
 
     public int MaxScale = 5;
 
@@ -139,7 +139,9 @@ public partial class ScrolledContentPage : ContentPage
             var position = e.GetPosition(visualElement);
             if (visualElement.Width == DefaultWidth)// && visualElement.HeightRequest == DefaultHeight)
             {
+                await ExpandBackground(visualElement);
                 await ZoomAndScrollContent(5, visualElement, position.Value);
+                await ResetBackground();
             }
             else
             {
